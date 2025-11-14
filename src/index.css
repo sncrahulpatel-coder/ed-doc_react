@@ -1,0 +1,13 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.skiptranslate{
+  z-index: -1;
+  position: absolute;
+}
+
+body{
+  top: 0px !important ;
+}

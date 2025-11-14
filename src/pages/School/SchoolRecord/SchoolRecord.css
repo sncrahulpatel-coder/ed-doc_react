@@ -1,0 +1,186 @@
+.ed-docFoldertree {
+
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+.foldertree-center {
+    position: relative;
+    width: 420px;
+    height: 420px;
+    max-width: 90vw;
+    max-height: 90vw;
+    margin: auto;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.foldertree-img {
+    height: 280px;
+    object-fit: contain;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+/* Button position with polar coordinates */
+.foldertree-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    min-width: 120px;
+    background: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 10px #eee;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    z-index: 3;
+    transition: all 0.2s;
+    transform:
+        translate(-50%, -50%) rotate(var(--angle, 0deg)) translateY(var(--radius, 140px)) rotate(calc(-1 * var(--angle, 0deg)));
+}
+
+.top-left {
+    --angle: -61deg;
+    --radius: 360px;
+}
+
+.top-right {
+    --angle: 58deg;
+    --radius: 313px;
+}
+
+.middle-left {
+    --angle: -91deg;
+    --radius: 386px;
+}
+
+.middle-right {
+    --angle: 91deg;
+    --radius: 401px;
+}
+
+.bottom-left {
+    --angle: -118deg;
+    --radius: 366px;
+}
+
+.bottom-right {
+    --angle: 119deg;
+    --radius: 352px;
+}
+
+@media (max-width: 700px) {
+    .foldertree-center {
+        width: 100vw;
+        height: auto;
+        border-radius: 0;
+        box-shadow: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 10vw 0;
+        position: static;
+    }
+
+    .foldertree-img {
+        display: none;
+        /* Hide the central image on small screens */
+    }
+
+    .foldertree-btn {
+        position: static;
+        left: auto;
+        top: auto;
+        min-width: 80vw;
+        width: 80vw;
+        margin: 10px auto;
+        padding: 14px 0;
+        font-size: 1rem;
+        box-shadow: 2px 2px 8px #eee;
+        transform: none;
+        /* Remove polar positioning */
+        display: block;
+    }
+
+    .top-left,
+    .top-right,
+    .middle-left,
+    .middle-right,
+    .bottom-left,
+    .bottom-right {
+        --angle: none;
+        --radius: none;
+        font-size: 1rem;
+        width: 80vw;
+    }
+}
+
+@media (max-width:768px) {
+    .foldertree-img {
+        height: 200px;
+    }
+
+    .middle-right {
+        --angle: 91deg;
+        --radius: 297px;
+        width: min-content;
+        font-size: 14px;
+
+    }
+
+    .middle-left {
+        --angle: -91deg;
+        --radius: 303px;
+        width: min-content;
+        font-size: 14px;
+
+    }
+
+    .bottom-left {
+        --angle: -118deg;
+        --radius: 274px;
+        width: min-content;
+        font-size: 14px;
+
+    }
+
+    .top-left {
+        --angle: -56deg;
+        --radius: 274px;
+        width: min-content;
+        font-size: 14px;
+
+    }
+
+    .bottom-right {
+        --angle: 120deg;
+        --radius: 258px;
+        width: min-content;
+        font-size: 14px;
+
+    }
+
+    .top-right {
+        --angle: 58deg;
+        --radius: 255px;
+        width: min-content;
+        font-size: 14px;
+    }
+
+}
+
+.disabled{
+    cursor: not-allowed;
+    background-color: #c7c7c7;
+}

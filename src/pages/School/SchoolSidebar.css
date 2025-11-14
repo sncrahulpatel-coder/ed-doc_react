@@ -1,0 +1,300 @@
+/* Light Theme Variables (Default) */
+:root {
+  --bg-color: #f7f8fc;
+  --main-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --text-color: #5a6474;
+  --text-light: #8a94a6;
+  --accent-color: #0a71f5;
+  --accent-text-color: #ffffff;
+  --card-bg: #f0f4ff;
+  --card-border-color: #d6e0ff;
+  --search-border-color: #dcdcdc;
+  --icon-filter: grayscale(100%) opacity(70%);
+  --icon-hover-filter: grayscale(0%) opacity(100%);
+  --active-icon-filter: brightness(0) invert(1);
+}
+
+/* Dark Theme Variables */
+[data-theme='dark'] {
+  --bg-color: #121212;
+  --main-bg: #1e1e1e;
+  --border-color: #333333;
+  --text-color: #e0e0e0;
+  --text-light: #a0a0a0;
+  --accent-color: #0a71f5;
+  --accent-text-color: #ffffff;
+  --card-bg: #2a2a2a;
+  --card-border-color: #444444;
+  --search-border-color: #555555;
+  --icon-filter: grayscale(100%) brightness(200%) opacity(70%);
+  --icon-hover-filter: grayscale(0%) brightness(100%) opacity(100%);
+  --active-icon-filter: brightness(0) invert(1);
+}
+
+
+/* Main Layout */
+.Ed-container {
+  display: flex;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Sidebar Styling */
+.Ed-sidebar {
+  width: 260px;
+  background: var(--main-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease-in-out, background-color 0.3s, border-color 0.3s;
+  flex-shrink: 0;
+}
+
+.Ed-sidebar-top {
+  padding: 25px 20px;
+}
+
+.Ed-logo-img {
+  width: 120px;
+  margin-bottom: 30px;
+}
+
+.Ed-school-info {
+  padding: 5px;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid var(--card-border-color);
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  margin-bottom: 25px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.Ed-navigation ul {
+  list-style: none;
+  padding: 0;
+}
+
+.Ed-nav-item {
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.Ed-nav-item a {
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+  margin: 5px 0;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  border-radius: 8px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.Ed-nav-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  transition: filter 0.2s;
+  filter: var(--icon-filter);
+}
+
+.Ed-nav-item.active,
+.Ed-nav-item:hover {
+  background-color: var(--accent-color);
+}
+
+.Ed-nav-item.active a,
+.Ed-nav-item:hover a {
+  color: #ffffff !important;
+}
+
+.Ed-nav-item.active .Ed-nav-icon,
+.Ed-nav-item:hover .Ed-nav-icon {
+  filter: var(--active-icon-filter);
+}
+
+.Ed-sidebar-bottom {
+  padding: 20px;
+}
+
+.Ed-upgrade-card {
+  background: var(--card-bg);
+  color: var(--text-light);
+  border-radius: 8px;
+  text-align: center;
+  padding: 15px;
+  transition: background-color 0.3s;
+}
+
+/* Main Panel */
+.Ed-main-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Navbar Styling */
+.Ed-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: var(--main-bg);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.Ed-navbar-left, .Ed-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.Ed-hamburger-btn {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.Ed-search-input {
+  padding: 10px 15px;
+  border: 1px solid var(--search-border-color);
+  border-radius: 20px;
+  width: 300px;
+  transition: border-color 0.2s;
+  margin-left: 5px;
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+.Ed-search-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+/* Academic Year Dropdown */
+.Ed-year-dropdown {
+  position: relative;
+}
+
+.Ed-year-selector {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border-color);
+  color: var(--text-color);
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.Ed-dropdown-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: var(--main-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.Ed-dropdown-menu li {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.Ed-dropdown-menu li:hover {
+  background-color: var(--card-bg);
+}
+
+.Ed-navbar-icon {
+  height: 34px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  filter: var(--icon-filter);
+}
+
+.Ed-navbar-icon:hover {
+  filter: var(--icon-hover-filter);
+}
+
+.Ed-content-area {
+  padding: 20px;
+    height: 90vh;
+  overflow-y: auto;  
+ scrollbar-width: none;  
+  -ms-overflow-style: none;
+}
+
+.Ed-content-area::-webkit-scrollbar {
+  display: none;
+}
+
+.Ed-overlay {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .Ed-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    z-index: 1000;
+  }
+
+  .Ed-sidebar.Ed-sidebar-visible {
+    transform: translateX(0);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .Ed-hamburger-btn {
+    display: block;
+  }
+
+  .Ed-search-input {
+    display: none;
+  }
+  
+  .Ed-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    display: none; /* Hidden by default */
+  }
+
+  .Ed-sidebar.Ed-sidebar-visible ~ .Ed-overlay {
+      display: block; /* Show overlay when sidebar is visible */
+  }
+}
+
+@media (max-width:425px) {
+  .Ed-navbar-left, .Ed-navbar-right{
+    gap: 10px !important;
+  }
+  .Ed-year-selector{
+    padding: 10px !important;
+  }
+}
