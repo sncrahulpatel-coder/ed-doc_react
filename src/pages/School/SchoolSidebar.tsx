@@ -107,10 +107,10 @@ const SchoolSidebar: React.FC<SidebarProps> = ({ children }) => {
               </li>
 
               <li
-                className={`Ed-nav-item ${location.pathname.includes('/school/studentRecords') ? 'active' : ''}`}
+                className={`Ed-nav-item ${location.pathname.includes('/school/StudentDocument') ? 'active' : ''}`}
                 onClick={handleNavItemClick}
               >
-                <a onClick={() => navigate('/school/studentRecords')}>
+                <a onClick={() => navigate('/school/StudentDocument')}>
                   <img src={schoolIconUrl} alt="Student Records" className="Ed-nav-icon" />
                   Student Records
                 </a>
@@ -143,9 +143,9 @@ const SchoolSidebar: React.FC<SidebarProps> = ({ children }) => {
             <button onClick={toggleSidebar} className="Ed-hamburger-btn">
               &#9776;
             </button>
-            <div className="Ed-search-container">
+            {/* <div className="Ed-search-container">
               <input type="text" placeholder="Search..." className="Ed-search-input" />
-            </div>
+            </div> */}
           </div>
           <div className="Ed-navbar-right">
             {/* <div className="Ed-year-dropdown">

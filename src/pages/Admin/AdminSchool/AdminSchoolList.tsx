@@ -42,6 +42,11 @@ const AdminSchoolList: React.FC = () => {
   const navigate = useNavigate();
   const [plans, setPlans] = useState<any[]>([]);
   const [searchText, setSearchText] = useState("");
+const formatGb = (value: any) => {
+  const num = Number(value); // convert string → number safely
+  if (isNaN(num)) return "0.000"; // if invalid string
+  return Math.max(0.001, Number(num.toFixed(3)));
+};
 
   // Fetch plans (no loader here; getData will show loader)
   const fetchPlans = async () => {
@@ -373,12 +378,12 @@ const AdminSchoolList: React.FC = () => {
 
               {/* Storage & Plan Section */}
               <hr />
-              <h5 className="mt-4 fw-bold text-secondary">💾 Storage & Plan Details</h5>
+              <h5 className="mt-4 fw-bold text-secondary">💾 Storage & Plan Details <span style={{color:" rgb(213 213 213)"}}>(${formatGb(selectedSchool.used_gb) || 0}GB / ${formatGb(selectedSchool.total_gb) || 0}GB)</span></h5>
 
               <div className="mt-3">
                 <ProgressBar
                   now={calculateUsedPercent(selectedSchool.used_gb, selectedSchool.total_gb)}
-                  label={`${selectedSchool.used_gb || 0}GB / ${selectedSchool.total_gb || 0}GB`}
+                  label={`${formatGb(selectedSchool.used_gb) || 0}GB / ${formatGb(selectedSchool.total_gb) || 0}GB`}
                   variant={calculateUsedPercent(selectedSchool.used_gb, selectedSchool.total_gb) > 80 ? "danger" : "info"}
                   style={{ height: "25px", borderRadius: "10px" }}
                 />

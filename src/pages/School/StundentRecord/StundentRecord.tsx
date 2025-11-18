@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import {
@@ -16,6 +16,7 @@ import {
   TableRow,
   TextField,
   Paper,
+  Pagination,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -28,8 +29,12 @@ const StundentRecord = () => {
 
   const [students, setStudents] = useState<any[]>([]);
   const [search, setSearch] = useState("");
-  const [standard, setStandard] = useState("All"); // <-- DEFAULT = ALL
+  const [standard, setStandard] = useState("All"); // DEFAULT = ALL
   const [uniqueStandards, setUniqueStandards] = useState<any>([]);
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
 
   // -----------------------
   // Fetch student list
@@ -47,7 +52,7 @@ const StundentRecord = () => {
 
       // Extract unique standards dynamically
       const standards = Array.from(
-        new Set(list.map((item:any) => item.standard))
+        new Set(list.map((item: any) => item.standard))
       );
 
       // Add "All" at the top
@@ -63,8 +68,13 @@ const StundentRecord = () => {
     getData();
   }, []);
 
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, standard]);
+
   // -----------------------
-  // Filter logic (standard + search)
+  // Filter logic
   // -----------------------
   const filteredStudents = students.filter((student) => {
     const matchesStandard =
@@ -78,6 +88,15 @@ const StundentRecord = () => {
 
     return matchesStandard && (nameMatch || enrollmentMatch);
   });
+
+  // -----------------------
+  // Pagination logic
+  // -----------------------
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const paginatedStudents = filteredStudents.slice(
+    startIndex,
+    startIndex + rowsPerPage
+  );
 
   // -----------------------
   // Excel Download
@@ -123,7 +142,7 @@ const StundentRecord = () => {
               label="Standard"
               onChange={(e) => setStandard(e.target.value)}
             >
-              {uniqueStandards.map((std:any) => (
+              {uniqueStandards.map((std: any) => (
                 <MenuItem key={std} value={std}>
                   {std}
                 </MenuItem>
@@ -138,7 +157,11 @@ const StundentRecord = () => {
             Download Excel
           </Button>
 
-          <Button variant="contained" style={{backgroundColor:"#ec8b16"}} onClick={() => navigate("add")}>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#ec8b16" }}
+            onClick={() => navigate("add")}
+          >
             Add Student
           </Button>
 
@@ -151,11 +174,11 @@ const StundentRecord = () => {
         </Box>
       </Box>
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} className="shadow">
         <Table sx={{ minWidth: 650 }} aria-label="student list table">
           <TableHead>
             <TableRow>
-              <TableCell>Sr No</TableCell>
+              <TableCell style={{textAlign:'center'}}>Sr No</TableCell>
               <TableCell>Enrollment</TableCell>
               <TableCell>Roll No</TableCell>
               <TableCell>Name</TableCell>
@@ -167,17 +190,23 @@ const StundentRecord = () => {
           </TableHead>
 
           <TableBody>
-            {filteredStudents.map((student, index) => (
+            {paginatedStudents.map((student, index) => (
               <TableRow key={student.student_id} hover>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{student.enrollment_no}</TableCell>
-                <TableCell>{student.roll_no}</TableCell>
-                <TableCell>{student.student_name}</TableCell>
-                <TableCell>{student.standard}</TableCell>
-                <TableCell>{student.division}</TableCell>
-                <TableCell>{student.mobile}</TableCell>
-                <TableCell>
-                  <button className="btn btn-primary">View</button>
+                <TableCell style={{padding:'8px',textAlign:'center'}}>{startIndex + index + 1}</TableCell>
+                <TableCell style={{padding:'8px'}}>{student.enrollment_no}</TableCell>
+                <TableCell style={{padding:'8px'}}>{student.roll_no}</TableCell>
+                <TableCell style={{padding:'8px'}}>{student.student_name}</TableCell>
+                <TableCell style={{padding:'8px'}}>{student.standard}</TableCell>
+                <TableCell style={{padding:'8px'}}>{student.division}</TableCell>
+                <TableCell style={{padding:'8px'}}>{student.mobile}</TableCell>
+                <TableCell style={{padding:'8px'}}>
+                  <button className="btn btn-primary" onClick={()=>{
+                    navigate('Student',{
+                      state:{
+                        student
+                      }
+                    })
+                  }}>View</button>
                 </TableCell>
               </TableRow>
             ))}
@@ -192,6 +221,17 @@ const StundentRecord = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Pagination Component */}
+      <Box display="flex" justifyContent="center" mt={2} mb={2}>
+        <Pagination
+          count={Math.ceil(filteredStudents.length / rowsPerPage)}
+          page={currentPage}
+          onChange={(e, value) => setCurrentPage(value)}
+          color="primary"
+          shape="rounded"
+        />
+      </Box>
     </Box>
   );
 };

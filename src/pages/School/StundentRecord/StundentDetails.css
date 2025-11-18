@@ -1,0 +1,14 @@
+h2.StudentRecordPage__section-title.text-center.mb-4.h3.fw-bold {
+    color: #0d6efd;
+}
+
+@media (max-width:768px) {
+    .StudentRecordPage__info-grid.row.g-3 {
+        text-align: center;
+    }
+
+}
+
+.fw-medium{
+  color: black !important;
+}

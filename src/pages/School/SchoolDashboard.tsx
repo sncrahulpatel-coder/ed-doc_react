@@ -26,12 +26,19 @@ const SchoolDashboard = () => {
       },
     ],
   };
+const formatGb = (value: any): number => {
+  const num = Number(value);
+  if (isNaN(num)) return 0.000; // return a NUMBER
+  return Math.max(0.001, Number(num.toFixed(3)));
+};
+
+
 
   const storagePanelData = {
     labels: [ 'Used','Available'],
     datasets: [
       {
-        data: [schoolData.used_gb, schoolData.total_gb- schoolData.used_gb],
+        data: [formatGb(schoolData.used_gb), schoolData.total_gb- formatGb(schoolData.used_gb)],
         backgroundColor: ['#fa1e1eff', '#d8d8d89d'],
         borderWidth: 0,
       },
@@ -154,7 +161,9 @@ const SchoolDashboard = () => {
               <Pie data={storagePanelData} options={{ plugins: { legend: { display: false } } }} />
             </div>
             <div className="ed-doc-storage-info">
-              <p className="p-0 m-0">{schoolData.used_gb} GB of {schoolData.total_gb} GB</p>
+<p className="p-0 m-0">
+  {formatGb(schoolData.used_gb)} GB of {formatGb(schoolData.total_gb)} GB
+</p>
               <div className="ed-doc-legend">
                 <div><span className="ed-doc-legend-color" style={{ backgroundColor: '#969696ff' }}></span> Available</div>
                 <div><span className="ed-doc-legend-color" style={{ backgroundColor: '#fa1e1eff' }}></span> Used</div>
